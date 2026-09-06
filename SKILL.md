@@ -36,7 +36,7 @@ advice. Markets can lose money.
 
 | Endpoint | Price (USDC) | Returns |
 |---|---|---|
-| `GET https://coil.trade/api/live/session`  | 2.00 | A 6-hour Coil Live session token, minted on payment. Send it as `X-License-Key` to unlock every `*_live` tool, `get_engine_feed` and `get_live_rules` — the wallet-native alternative to the $29/mo subscription. Cheaper to subscribe if you run every day. |
+| `GET https://coil.trade/api/live/session`  | 0.10 | A 1-hour Coil Live session token, minted on payment. Send it as `X-License-Key` to unlock every `*_live` tool, `get_engine_feed` and `get_live_rules` — the wallet-native way to try the $29/mo Coil Live tier by the hour; the subscription wins only if you run around the clock (break-even ≈290 hours a month). |
 | `GET https://coil.trade/api/board/regime`  | 0.005 | Regime verdict per book (risk-on / be-selective / stand-down) + the index→sector→name permission ladder. |
 | `GET https://coil.trade/api/board/crypto`  | 0.005 | BTC/ETH long-only trend signal: LONG or CASH per sleeve, 50-day gates + the BTC 200-day master gate (UTC daily closes). |
 | `GET https://coil.trade/api/board/indices` | 0.005 | The scored index row per book (SPY, QQQ, macro, BTC/ETH) — the cheapest top-down read. |
