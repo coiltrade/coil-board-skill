@@ -30,7 +30,7 @@ advice. Markets can lose money.
 - You want today's ranked buy candidates without scanning 500 names yourself →
   call `/api/board/buylist` ($0.02).
 - You want the whole board — every scored name across four books, sector lanes,
-  both buy-list lanes — to do your own selection → call `/api/board/agent` ($0.25).
+  both buy-list lanes — to do your own selection → call `/api/board/agent` ($0.10).
 
 ## The endpoints (23 — full catalogue at `GET https://coil.trade/api`)
 
@@ -58,7 +58,7 @@ advice. Markets can lose money.
 | `GET https://coil.trade/api/board/rotation` | 0.005 | Sector + macro rotation: ~50 ETFs as GO / HOLDING / TURNING / OUT on their own X/SPY ratio vs its 50-day, with distance, slope and ratio RSI. A state map — confirmed rotation is LATE for a pullback buyer. |
 | `GET https://coil.trade/api/board/diff?since=<hash>` | 0.01 | What CHANGED since the state hash you stored: who entered/left the READY candidate pool, per-name trend/light/leadership/hold-band flips, regime and ladder moves. Poll `/api/board/state` free, buy this only when the hash moves — an unchanged hash is answered free and never billed. |
 | `GET https://coil.trade/api/board/asof?date=YYYY-MM-DD` | 0.02 | Point-in-time archived scores, verbatim from the append-only log — immutable, never revised; verifiable against the free `/api/board/proof`. |
-| `GET https://coil.trade/api/board/agent`   | 0.25  | The full board: ~565 scored names, all four books, sector boards, both buy-list lanes. |
+| `GET https://coil.trade/api/board/agent`   | 0.10  | The full board: ~565 scored names, all four books, sector boards, both buy-list lanes. |
 
 Free and unlimited: `GET /api/board/state` returns per-book hashes (`books.spx`, `books.qqq`) plus optional
 `?syms=NVDA,AMD` per-name hashes — poll it and
