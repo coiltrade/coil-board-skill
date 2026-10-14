@@ -28,15 +28,15 @@ advice. Markets can lose money.
 - You need a market-regime gate before doing something expensive: *is it risk-on
   or risk-off right now?* → call `/api/board/regime` ($0.005).
 - You want today's ranked buy candidates without scanning 500 names yourself →
-  call `/api/board/buylist` ($0.02).
+  call `/api/board/buylist` ($0.05).
 - You want the whole board — every scored name across four books, sector lanes,
-  both buy-list lanes — to do your own selection → call `/api/board/agent` ($0.10).
+  both buy-list lanes — to do your own selection → call `/api/board/agent` ($0.25).
 
 ## The endpoints (23 — full catalogue at `GET https://coil.trade/api`)
 
 | Endpoint | Price (USDC) | Returns |
 |---|---|---|
-| `GET https://coil.trade/api/live/session`  | 0.10 | A 1-hour Coil Live session token, minted on payment. Send it as `X-License-Key` to unlock every `*_live` tool, `get_engine_feed` and `get_live_rules` — the wallet-native way to try the $29/mo Coil Live tier by the hour; the subscription wins only if you run around the clock (break-even ≈290 hours a month). |
+| `GET https://coil.trade/api/live/session`  | 0.25 | A 1-hour Coil Live session token, minted on payment. Send it as `X-License-Key` to unlock every `*_live` tool, `get_engine_feed` and `get_live_rules` — the wallet-native way to try the $49/mo Coil Live tier by the hour; the subscription wins past about 196 hours a month (break-even ≈196 hours). |
 | `GET https://coil.trade/api/board/regime`  | 0.005 | Regime verdict per book (risk-on / be-selective / stand-down) + the index→sector→name permission ladder. |
 | `GET https://coil.trade/api/board/crypto`  | 0.005 | BTC/ETH long-only trend signal: LONG or CASH per sleeve, 50-day gates + the BTC 200-day master gate (UTC daily closes). |
 | `GET https://coil.trade/api/board/indices` | 0.005 | The scored index row per book (SPY, QQQ, macro, BTC/ETH) — the cheapest top-down read. |
@@ -46,19 +46,19 @@ advice. Markets can lose money.
 | `GET https://coil.trade/api/board/sectors` | 0.01  | Every sector ETF scored + the regime's green sectors. |
 | `GET https://coil.trade/api/board/sector?name=Energy` | 0.01 | One sector's members, fully scored and ranked (`?etf=XLE` works too). |
 | `GET https://coil.trade/api/board/leaders` | 0.01  | Top 10 leadership names per book by opportunity. |
-| `GET https://coil.trade/api/board/buylist` | 0.02  | Today's ranked candidates per book across two lanes, with entry windows and leadership flags. |
-| `GET https://coil.trade/api/board/top-volume` | 0.02 | Top-5 by 20-day dollar volume in every sector, fully scored. |
+| `GET https://coil.trade/api/board/buylist` | 0.05  | Today's ranked candidates per book across two lanes, with entry windows and leadership flags. |
+| `GET https://coil.trade/api/board/top-volume` | 0.05 | Top-5 by 20-day dollar volume in every sector, fully scored. |
 | `GET https://coil.trade/api/crypto/gate`   | 0.001 | The cheapest check: is the BTC 200-day master gate open? LONG/CASH per sleeve + verdict. |
 | `GET https://coil.trade/api/crypto/night`  | 0.001 | Overnight continuation read: the top-5 session-momentum coins into the 20:00 UTC signal + the BTC 200-day regime gate + the pre-registered study receipts (beat its null at every fee tier; REFUTED at Robinhood retail taker fees — the refutation ships in the read). ~15-min refresh, 24/7. |
 | `GET https://coil.trade/api/crypto/setup`  | 0.05  | Crypto SETUP scan: washed-shape hits across all 81 RH-tradable coins — GO, fuel vs BTC, grade, room, plus the setup column for the whole universe (~5-min recompute, 24/7; equity-validated shapes, forward-graded on crypto). |
 | `GET https://coil.trade/api/crypto/day`    | 0.005 | 24/7 crypto day-state board: 81 RH-tradable coins — trend distances, tape lights, ATR%, RS vs BTC, room, volume z, UP/CHOP/DOWN state + ranks, plus the daily gate and breadth (publishes ~every 5 min around the clock when the market moved; a state map, not a ranking). |
 | `GET https://coil.trade/api/tradfi-risk`   | 0.003 | TradFi risk-on/off for crypto agents: S&P + Nasdaq regime, sector breadth, ladder + the BTC/ETH gate. |
-| `GET https://coil.trade/api/board/brief`   | 0.02  | The morning brief: regime per book + top-5 picks + biggest movers + crypto gate, in one call. |
+| `GET https://coil.trade/api/board/brief`   | 0.05  | The morning brief: regime per book + top-5 picks + biggest movers + crypto gate, in one call. |
 | `GET https://coil.trade/api/board/day`   | 0.01  | day-trade state map: intraday lights grid, GO, FUEL vs anchor ETF, entry-window state, ROOM per name (~70 names, ~5-min refresh; a state map, not a ranking) |
 | `GET https://coil.trade/api/board/rotation` | 0.005 | Sector + macro rotation: ~50 ETFs as GO / HOLDING / TURNING / OUT on their own X/SPY ratio vs its 50-day, with distance, slope and ratio RSI. A state map — confirmed rotation is LATE for a pullback buyer. |
 | `GET https://coil.trade/api/board/diff?since=<hash>` | 0.01 | What CHANGED since the state hash you stored: who entered/left the READY candidate pool, per-name trend/light/leadership/hold-band flips, regime and ladder moves. Poll `/api/board/state` free, buy this only when the hash moves — an unchanged hash is answered free and never billed. |
-| `GET https://coil.trade/api/board/asof?date=YYYY-MM-DD` | 0.02 | Point-in-time archived scores, verbatim from the append-only log — immutable, never revised; verifiable against the free `/api/board/proof`. |
-| `GET https://coil.trade/api/board/agent`   | 0.10  | The full board: ~565 scored names, all four books, sector boards, both buy-list lanes. |
+| `GET https://coil.trade/api/board/asof?date=YYYY-MM-DD` | 0.05 | Point-in-time archived scores, verbatim from the append-only log — immutable, never revised; verifiable against the free `/api/board/proof`. |
+| `GET https://coil.trade/api/board/agent`   | 0.25  | The full board: ~565 scored names, all four books, sector boards, both buy-list lanes. |
 
 Free and unlimited: `GET /api/board/state` returns per-book hashes (`books.spx`, `books.qqq`) plus optional
 `?syms=NVDA,AMD` per-name hashes — poll it and
@@ -135,7 +135,7 @@ in the Coinbase CDP x402 Bazaar; discovery metadata is also at
 
 Every retention-minded buyer converges on the same loop, so here it is as the documented
 default. It spends nothing while the board is materially unchanged, $0.005 when the regime
-moves, and $0.02 more only when the regime says names are enterable:
+moves, and $0.05 more only when the regime says names are enterable:
 
 ```js
 // coil_loop.mjs — poll free, buy on change, escalate on permission.
@@ -160,7 +160,7 @@ async function tick() {
   const regime = await (await paid("https://coil.trade/api/board/regime")).json();
   const spx = regime.books?.spx?.regime;             // { mode, verdict, ladder: { rung } … }
 
-  // 3. $0.02 — the ranked buy-list, only when the ladder says names are enterable
+  // 3. $0.05 — the ranked buy-list, only when the ladder says names are enterable
   if (spx?.ladder?.rung === "NAMES") {
     const buylist = await (await paid("https://coil.trade/api/board/buylist")).json();
     // …your sizing and exit rules here. Coil publishes scores and states —
