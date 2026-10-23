@@ -8,5 +8,7 @@
     "url": "https://coil.trade"
   },
   "homepage": "https://coil.trade",
-  "license": "MIT"
+  "license": "MIT",
+  "icon": ".claude-plugin/icon.png",
+  "privacyPolicyUrl": "https://coil.trade/privacy"
 }

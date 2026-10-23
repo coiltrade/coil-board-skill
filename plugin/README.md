@@ -8,7 +8,7 @@ The plugin declares one remote MCP server, `https://mcp.coil.trade/mcp`, operate
 
 ## What data is sent
 
-Only the arguments of the tool calls Claude makes for your question, for example a ticker such as NVDA, a sector name such as Energy, or a list of up to three tickers for a hold check. These arguments reach Coil's server and may appear in its request logs; see the privacy policy at https://coil.trade/privacy. The skills do not send account data, brokerage details, positions, entry prices, position sizes or conversation text. The free tools need no sign-in.
+Only the arguments of the tool calls Claude makes for your question, for example a ticker such as NVDA, a sector name such as Energy, or a list of up to three tickers for a hold check. These arguments reach Coil's server and may appear in its request logs; see the privacy policy (https://coil.trade/privacy). The skills do not send account data, brokerage details, positions, entry prices, position sizes or conversation text. The free tools need no sign-in.
 
 ## Free tier and Coil Live
 
