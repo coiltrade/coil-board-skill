@@ -1,0 +1,12 @@
+{
+  "name": "coil",
+  "displayName": "Coil",
+  "version": "0.1.0",
+  "description": "Skills for reading the stock market with Coil's market-read connector: market regime, sector rotation, single-stock reads, hold checks and published research studies. Uses the free delayed tools by default.",
+  "author": {
+    "name": "Coil",
+    "url": "https://coil.trade"
+  },
+  "homepage": "https://coil.trade",
+  "license": "MIT"
+}
