@@ -28,5 +28,5 @@ jobs:
           REF_NAME: ${{ github.ref_name }}
         run: .github/scripts/plugin-guard.sh version
       - name: Claude plugin validate
-        # The directory's own checks (a subset). Verified to run non-interactively with no API key and an empty HOME.
-        run: npx -y @anthropic-ai/claude-code plugin validate ./plugin </dev/null
+        # Pinned (2.1.309) so a new CLI release cannot turn this red alone; bump it deliberately. The directory's own checks (a subset). Verified to run non-interactively with no API key and an empty HOME.
+        run: npx -y @anthropic-ai/claude-code@2.1.309 plugin validate ./plugin </dev/null
