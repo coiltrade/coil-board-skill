@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "coil": {
+      "type": "http",
+      "url": "https://mcp.coil.trade/mcp"
+    }
+  }
+}
