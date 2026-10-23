@@ -13,8 +13,34 @@ ZERO=0000000000000000000000000000000000000000
 fail=0
 err() { echo "::error::$*"; fail=1; }
 
+# Print one line per problem with a SKILL.md frontmatter (nothing when fine).
+# Tolerates a leading BOM, CRLF, and trailing spaces on the '---' lines; needs a closing '---'.
+frontmatter_problems() {
+  node -e '
+    let t = require("fs").readFileSync(process.argv[1], "utf8").replace(/^\uFEFF/, "").replace(/\r/g, "");
+    const L = t.split("\n"), fence = /^---[ \t]*$/;
+    if (!fence.test(L[0])) { console.log("no frontmatter (the file must start with ---)"); process.exit(0); }
+    let end = -1;
+    for (let i = 1; i < L.length; i++) if (fence.test(L[i])) { end = i; break; }
+    if (end < 0) { console.log("frontmatter is not closed (no closing ---)"); process.exit(0); }
+    const fm = L.slice(1, end);
+    for (const key of ["name", "description"]) {
+      const i = fm.findIndex(l => l.startsWith(key + ":"));
+      let ok = false;
+      if (i >= 0) {
+        let v = fm[i].slice(key.length + 1).trim();
+        v = v.replace(/^"(.*)"$/, "$1").replace(/^\x27(.*)\x27$/, "$1").trim();
+        if (/^[>|][+-]?[0-9]?[+-]?$/.test(v)) {            // block scalar: needs indented text after it
+          for (let j = i + 1; j < fm.length && (fm[j].trim() === "" || /^[ \t]/.test(fm[j])); j++)
+            if (fm[j].trim() !== "") { ok = true; break; }
+        } else ok = v !== "" && !/^(null|~)$/i.test(v);
+      }
+      if (!ok) console.log("frontmatter has no " + key + " (missing, empty, null, or an empty block scalar)");
+    }' "$1"
+}
+
 structure() {
-  local f icon n s
+  local f icon n s line
   for f in "$MANIFEST" "$P/.mcp.json"; do
     if [ ! -f "$f" ]; then err "missing $f"; continue; fi
     jq -e . "$f" >/dev/null 2>&1 || err "$f is not valid JSON"
@@ -29,18 +55,28 @@ structure() {
     err "missing $P/README.md"
   fi
 
-  icon=$(jq -r '.icon // empty' "$MANIFEST")
-  if [ -z "$icon" ]; then err "$MANIFEST names no \"icon\""
-  elif [ ! -f "$P/$icon" ]; then err "the icon $MANIFEST names ($icon) is missing at $P/$icon"; fi
+  # servers live in .mcp.json; a second, unchecked set in the manifest is how a wrong url ships
+  if jq -e 'has("mcpServers")' "$MANIFEST" >/dev/null; then
+    err "$MANIFEST must not set \"mcpServers\"; the server lives in $P/.mcp.json"
+  fi
+
+  icon=$(jq -r 'if (.icon | type) == "string" then .icon else empty end' "$MANIFEST")
+  if [ -z "$icon" ]; then err "$MANIFEST names no \"icon\" (a string path)"
+  elif [[ "$icon" == /* || "$icon" == *..* || "$icon" == *\\* ]]; then
+    err "the icon path '$icon' must be relative, inside plugin/ (no leading '/', '..' or backslash)"
+  elif [ ! -f "$P/$icon" ]; then err "the icon $MANIFEST names ($icon) is missing at $P/$icon"
+  elif [ ! -s "$P/$icon" ]; then err "the icon $P/$icon is empty"; fi
 
   n=0
+  for f in "$P"/skills/*/; do
+    [ -d "$f" ] || continue
+    [ -f "${f}SKILL.md" ] || err "${f} has no SKILL.md"
+  done
   for f in "$P"/skills/*/SKILL.md; do
     [ -f "$f" ] || continue
     n=$((n+1))
-    # frontmatter = lines between the first two '---' lines; name and description must be non-empty
-    s=$(awk 'NR==1 && $0!="---"{exit} NR>1 && $0=="---"{exit} NR>1{print}' "$f")
-    printf '%s\n' "$s" | grep -Eq '^name:[[:space:]]*[^[:space:]]' || err "$f: frontmatter has no name"
-    printf '%s\n' "$s" | grep -Eq '^description:[[:space:]]*[^[:space:]]' || err "$f: frontmatter has no description"
+    s=$(frontmatter_problems "$f")
+    [ -z "$s" ] || while IFS= read -r line; do err "$f: $line"; done <<< "$s"
   done
   [ "$n" -ge 1 ] || err "no $P/skills/*/SKILL.md found"
 
@@ -68,7 +104,7 @@ resolve_base() {
 }
 
 version_check() {
-  local base changed new old
+  local base changed new old base_json
   base=$(resolve_base)
   if [ -z "$base" ]; then
     changed=$(git ls-tree -r --name-only HEAD -- $P | sed -n 1p)   # first commit: everything is new
@@ -76,13 +112,22 @@ version_check() {
     changed=$(git diff --name-only "$base"...HEAD -- $P)
   fi
   if [ -z "$changed" ]; then echo "nothing under $P/ changed; no version bump needed"; return 0; fi
-  echo "changed under $P/ (base ${base:-none}):"; printf '  %s\n' $changed
+  echo "changed under $P/ (base ${base:-none}):"; printf '%s\n' "$changed" | sed 's/^/  /'
 
-  new=$(jq -r '.version // empty' "$MANIFEST")
+  new=$(jq -r '.version // empty' "$MANIFEST" 2>/dev/null) || { err "$MANIFEST is not valid JSON"; return 0; }
   old=""
-  if [ -n "$base" ]; then old=$(git show "$base:$MANIFEST" 2>/dev/null | jq -r '.version // empty' 2>/dev/null || true); fi
+  # Skip the comparison only when the base has no plugin/ at all (first commit, or the plugin is being added).
+  # If it has one, its manifest must be readable: a broken base would otherwise let any version through.
+  if [ -n "$base" ] && [ -n "$(git ls-tree -r --name-only "$base" -- $P | sed -n 1p)" ]; then
+    if ! base_json=$(git show "$base:$MANIFEST" 2>/dev/null); then
+      err "the base commit ($base) has $P/ but no $MANIFEST, so the version cannot be compared. Fix the base manifest first."; return 0
+    fi
+    if ! old=$(printf '%s' "$base_json" | jq -er '.version | strings' 2>/dev/null) || [ -z "$old" ]; then
+      err "the base commit ($base) has $MANIFEST but it is unparseable or has no string \"version\", so the version cannot be compared. Fix \"version\" in $MANIFEST on the base branch first."; return 0
+    fi
+  fi
 
-  # exit 0: new > old (or old absent and new valid); 1: not greater; 2: new is not valid semver
+  # exit 0: new > old (or no base plugin and new valid); 1: not greater; 2: new is not valid semver; 3: base version not valid semver
   set +e
   OLD="$old" NEW="$new" node -e '
     const re=/^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[A-Za-z-][0-9A-Za-z-]*)(?:\.(?:0|[1-9]\d*|\d*[A-Za-z-][0-9A-Za-z-]*))*))?(?:\+[0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*)?$/;
@@ -96,6 +141,7 @@ version_check() {
       return 0};
     const n=p(process.env.NEW),o=process.env.OLD?p(process.env.OLD):null;
     if(!n)process.exit(2);
+    if(process.env.OLD&&!o)process.exit(3);
     if(!o)process.exit(0);
     process.exit(cmp(n,o)>0?0:1)'
   local rc=$?
@@ -103,6 +149,7 @@ version_check() {
   case $rc in
     0) echo "version ok: ${old:-(none)} -> $new" ;;
     1) err "Files under plugin/ changed but the version was not raised (base ${old}, now ${new}). Raise \"version\" in plugin/.claude-plugin/plugin.json to a semver greater than ${old}." ;;
+    3) err "the base commit's \"version\" ('${old}') is not valid semver, so the version cannot be compared. Fix \"version\" in $MANIFEST on the base branch first." ;;
     *) err "plugin/.claude-plugin/plugin.json \"version\" is missing or not valid semver (got: '${new}'). Set \"version\" to a valid x.y.z, greater than the base's (${old:-none})." ;;
   esac
 }

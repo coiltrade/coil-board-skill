@@ -3,6 +3,7 @@ name: plugin
 # push to main becomes a candidate plugin version; a change without a raised "version" would not ship.
 on:
   push:
+    branches: [main]   # feature branches are covered by pull_request
     paths: ['plugin/**', '.github/workflows/plugin.yml', '.github/scripts/plugin-guard.sh']
   pull_request:
     paths: ['plugin/**', '.github/workflows/plugin.yml', '.github/scripts/plugin-guard.sh']
@@ -12,7 +13,7 @@ jobs:
   plugin:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
         with:
           fetch-depth: 0
           # the PR head itself, not the synthetic merge commit, so the version checked is the PR's
