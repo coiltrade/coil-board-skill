@@ -18,8 +18,8 @@ Try the free board right now, no install:
 python3 scripts/coil_board.py --record
 ```
 
-Prefer tools over a script? The same board is a free remote **MCP server** (33 tools in Claude clients;
-the free tools return a sample of the board, one market day delayed):
+Prefer tools over a script? The same board is a remote **MCP server** (33 tools in Claude clients;
+the free ones return a sample of the board, one market day delayed):
 
 ```bash
 claude mcp add --transport http coil https://mcp.coil.trade/mcp
