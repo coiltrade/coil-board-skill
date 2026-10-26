@@ -18,22 +18,23 @@ Try the free board right now, no install:
 python3 scripts/coil_board.py --record
 ```
 
-Prefer tools over a script? The same board is a free remote **MCP server** (7 tools, full board one
-market day delayed):
+Prefer tools over a script? The same board is a free remote **MCP server** (33 tools in Claude clients;
+the free tools return a sample of the board, one market day delayed):
 
 ```bash
-claude mcp add --transport http coil https://coil.trade/mcp
+claude mcp add --transport http coil https://mcp.coil.trade/mcp
 ```
 
 ## What it reads
 
-[Coil, a rules-based long-only stock scanner](https://coil.trade) scores ~560 US names (S&P 500, Nasdaq-100, macro ETFs) plus a long-only
+[Coil, a rules-based long-only stock scanner](https://coil.trade) scores 650+ US names (S&P 500, Nasdaq-100, macro ETFs) plus a long-only
 BTC/ETH trend book each market morning: opportunity percentile, entry quality, hold strength, a
 state, and a regime verdict per book with a permission ladder. Field meanings: [`reference.md`](reference.md).
 
 Free tiers: the delayed board and MCP server (above), plus `POST /api/key` with an email for ~25
-live calls/day on the cheap slices. Paid slices are $0.001–$0.25 per read over
-[x402](https://x402.org), or $12/mo for the live intraday board.
+live calls/day on the cheap slices. Paid slices are read over
+[x402](https://x402.org) (live price list: <https://coil.trade/.well-known/x402>), and the live
+intraday board is a Coil Live subscription (see <https://coil.trade>).
 
 ## Check the publisher before trusting it
 

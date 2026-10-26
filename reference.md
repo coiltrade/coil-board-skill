@@ -35,10 +35,10 @@ top-ranked name every day is not running the strategy.
 ## The books
 
 `spx` (S&P 500) · `qqq` (Nasdaq-100) · `macro` (bonds / income / gold & metals / commodities) ·
-`crypto` (BTC and ETH, long-only trend evaluated on UTC daily closes, gated by BTC's 200-day).
+`crypto` (BTC and ETH, long-only trend evaluated on UTC daily closes: 50-day gates per sleeve plus the BTC 200-day master gate).
 
 The free tier shows the top few names per book, one market day delayed. The hosted board shows all
-~560 names, live states, sector boards and both ranked buy-list lanes.
+650+ names, live states, sector boards and both ranked buy-list lanes.
 
 ## Checking the publisher before trusting it
 
