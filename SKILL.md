@@ -73,7 +73,7 @@ declares `extensions["sign-in-with-x"]`; sign the message and send it back as th
 `SIGN-IN-WITH-X` header, or mint a durable key via `GET /api/auth/nonce` → `POST /api/auth/verify`.
 
 No wallet? A sample of the board is also a **remote MCP server** — free tier, top 3 per book and
-headline fields, one market day delayed: `claude mcp add --transport http coil https://coil.trade/mcp`
+headline fields, one market day delayed: `claude mcp add --transport http coil https://mcp.coil.trade/mcp`
 
 ## Pairing with a broker (closing the loop)
 
