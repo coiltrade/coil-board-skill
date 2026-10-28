@@ -10,5 +10,16 @@
   "homepage": "https://coil.trade",
   "license": "MIT",
   "icon": ".claude-plugin/icon.png",
-  "privacyPolicyUrl": "https://coil.trade/privacy"
+  "privacyPolicyUrl": "https://coil.trade/privacy",
+  "documentationUrl": "https://coil.trade/agents",
+  "supportUrl": "https://coil.trade/contact",
+  "termsOfServiceUrl": "https://coil.trade/terms",
+  "keywords": [
+    "stocks",
+    "market",
+    "trading research",
+    "sector rotation",
+    "crypto",
+    "mcp"
+  ]
 }

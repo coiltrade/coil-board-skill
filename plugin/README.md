@@ -8,11 +8,11 @@ The plugin declares one remote MCP server, `https://mcp.coil.trade/mcp`, operate
 
 ## What data is sent
 
-Only the arguments of the tool calls Claude makes for your question, for example a ticker such as NVDA, a sector name such as Energy, or a list of up to three tickers for a hold check. These arguments reach Coil's server and may appear in its request logs; see the privacy policy (https://coil.trade/privacy). The skills do not send account data, brokerage details, positions, entry prices, position sizes or conversation text. The free tools need no sign-in.
+Only the arguments of the tool calls Claude makes for your question, for example a ticker such as NVDA, a sector name such as Energy, or a list of up to three tickers for a hold check. These arguments reach Coil's server and may appear in its request logs; see the privacy policy: <https://coil.trade/privacy>. The skills do not send account data, brokerage details, positions, entry prices, position sizes or conversation text. The free tools need no sign-in.
 
 ## Free tier and Coil Live
 
-The free tools return a sample of each read. Stock-market reads are one market day delayed; the crypto tools are one completed UTC close behind or a trimmed preview. The skills use the free tools by default. Tools whose names end in `_live` return intraday data to Coil Live subscribers, and the skills call them only when you ask for live or intraday data. In Claude, a `_live` call without a Coil Live sign-in returns the free delayed read, and the skills tell you so; some other clients receive a payment-required response instead. Terms are at https://coil.trade/terms.
+The free tools return a sample of each read. Stock-market reads are one market day delayed; the crypto tools are one completed UTC close behind or a trimmed preview. The skills use the free tools by default. Tools whose names end in `_live` return intraday data to Coil Live subscribers, and the skills call them only when you ask for live or intraday data. In Claude, a `_live` call without a Coil Live sign-in returns the free delayed read, and the skills tell you so; some other clients receive a payment-required response instead. Terms: <https://coil.trade/terms>
 
 ## Skills
 
