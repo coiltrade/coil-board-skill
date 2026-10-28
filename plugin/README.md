@@ -1,4 +1,4 @@
-# Coil
+# Coil Live
 
 This plugin adds four skills that teach Claude how to use the Coil market-read connector: checking the overall market, reading one stock, checking sector rotation, and finding published research studies. It does not add commands, hooks or scripts, and it never places trades.
 

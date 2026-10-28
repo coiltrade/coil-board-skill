@@ -1,10 +1,10 @@
 {
   "name": "coil",
-  "displayName": "Coil",
-  "version": "0.1.0",
-  "description": "Skills for reading the stock market with Coil's market-read connector: market regime, sector rotation, single-stock reads, hold checks and published research studies. Uses the free delayed tools by default.",
+  "displayName": "Coil Live",
+  "version": "0.1.1",
+  "description": "Read the stock market in Claude: market regime, sector rotation, single-stock and hold checks, Bitcoin and Ethereum trend gates, and published backtest studies. Free delayed reads by default; read-only, never trades.",
   "author": {
-    "name": "Coil",
+    "name": "Coil Technologies LLC",
     "url": "https://coil.trade"
   },
   "homepage": "https://coil.trade",
@@ -15,11 +15,21 @@
   "supportUrl": "https://coil.trade/contact",
   "termsOfServiceUrl": "https://coil.trade/terms",
   "keywords": [
-    "stocks",
-    "market",
-    "trading research",
+    "stock market",
+    "market regime",
     "sector rotation",
+    "stock analysis",
+    "stock research",
+    "technical analysis",
+    "swing trading",
+    "S&P 500",
+    "Nasdaq-100",
+    "ETFs",
+    "earnings",
+    "bitcoin",
+    "ethereum",
     "crypto",
-    "mcp"
+    "backtest",
+    "market leaders"
   ]
 }
