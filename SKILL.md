@@ -49,9 +49,9 @@ advice. Markets can lose money.
 | `GET https://coil.trade/api/board/buylist` | 0.05  | Today's ranked candidates per book across two lanes, with entry windows and leadership flags. |
 | `GET https://coil.trade/api/board/top-volume` | 0.05 | Top-5 by 20-day dollar volume in every sector, fully scored. |
 | `GET https://coil.trade/api/crypto/gate`   | 0.001 | The cheapest check: is the BTC 200-day master gate open? LONG/CASH per sleeve + verdict. |
-| `GET https://coil.trade/api/crypto/night`  | 0.001 | Overnight continuation read: the top-5 session-momentum coins into the 20:00 UTC signal + the BTC 200-day regime gate + the pre-registered study receipts (beat its null at every fee tier; REFUTED at Robinhood retail taker fees — the refutation ships in the read). ~15-min refresh, 24/7. |
+| `GET https://coil.trade/api/crypto/night`  | 0.001 | Overnight continuation read: the top-5 session-momentum coins into the 20:00 UTC signal + the BTC 200-day regime gate + the pre-registered study receipts (beat its null at every fee tier; REFUTED at Robinhood retail taker fees — the refutation ships in the read). ~5-min refresh, 24/7. |
 | `GET https://coil.trade/api/crypto/setup`  | 0.05  | Crypto SETUP scan: washed-shape hits across all 81 RH-tradable coins — GO, fuel vs BTC, grade, room, plus the setup column for the whole universe (~5-min recompute, 24/7; equity-validated shapes, forward-graded on crypto). |
-| `GET https://coil.trade/api/crypto/day`    | 0.005 | 24/7 crypto day-state board: 81 RH-tradable coins — trend distances, tape lights, ATR%, RS vs BTC, room, volume z, UP/CHOP/DOWN state + ranks, plus the daily gate and breadth (publishes ~every 5 min around the clock when the market moved; a state map, not a ranking). |
+| `GET https://coil.trade/api/crypto/day`    | 0.005 | 24/7 crypto day-state board: 81 RH-tradable coins — trend distances, tape lights, ATR%, RS vs BTC, room, volume z, UP/CHOP/DOWN state + ranks, plus the daily gate and breadth (publishes ~every 5 min around the clock; a state map, not a ranking). |
 | `GET https://coil.trade/api/tradfi-risk`   | 0.003 | TradFi risk-on/off for crypto agents: S&P + Nasdaq regime, sector breadth, ladder + the BTC/ETH gate. |
 | `GET https://coil.trade/api/board/brief`   | 0.05  | The morning brief: regime per book + top-5 picks + biggest movers + crypto gate, in one call. |
 | `GET https://coil.trade/api/board/day`   | 0.01  | day-trade state map: intraday lights grid, GO, FUEL vs anchor ETF, entry-window state, ROOM per name (~70 names, ~5-min refresh; a state map, not a ranking) |
@@ -93,7 +93,7 @@ Full recipe: <https://coil.trade/agents/robinhood>
 
 All live slices read from the **same freshest payload** (two exceptions: the as-of
 archive serves its requested date, and `/api/crypto/day` is its own 24/7 artifact,
-published ~every 5 minutes around the clock when the market moved, self-dated via `computed_at`), so a cheap
+published ~every 5 minutes around the clock, self-dated via `computed_at`), so a cheap
 slice is never staler than the full board. During US market hours the board
 recomputes about every 5 minutes; the payload carries `computed_at` and an
 `intraday` flag, plus a `freshness` block telling you when it is worth paying again.
