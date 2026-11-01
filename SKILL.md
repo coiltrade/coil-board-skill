@@ -1,11 +1,14 @@
 ---
 name: coil-board
 description: >-
-  Buy Coil's scored, ranked stock board over x402 instead of building a scanner.
-  Use when an agent needs a market read — is the tape risk-on or risk-off, which
+  A trading desk's discipline for an AI agent, read from Coil's scored stock
+  board: the gate (is the market worth trading today; on a cash reading open
+  nothing new, because cash is a position), where money is moving, the set-ups
+  with their entry windows, one name before any buy, and the hold state of what
+  is owned. Use when an agent needs a market read: risk-on or risk-off, which
   S&P 500 / Nasdaq-100 / macro names are set up to buy right now, or the full
   650+ name board with opportunity, entry-timing and hold-strength scores. Pays
-  per read in USDC on Base (eip155:8453) via the x402 protocol — no account, no
+  per read in USDC on Base (eip155:8453) via the x402 protocol, no account, no
   card, no email. Research, not investment advice.
 license: See https://coil.trade/terms
 homepage: https://coil.trade/agents
@@ -25,6 +28,8 @@ advice. Markets can lose money.
 
 ## When to use this skill
 
+Use it to trade like a desk, in a fixed order: the gate first, then where the money is moving, then the names that are set up, then one name before any buy, then the hold state of what you already own. Cash is a position: when the gate reads cash, a disciplined agent opens nothing new and the right number of orders is zero. A name inside its entry window is a candidate; a name far above it is a chase. Exits come before entries.
+
 - You need a market-regime gate before doing something expensive: *is it risk-on
   or risk-off right now?* → call `/api/board/regime` ($0.005).
 - You want today's ranked buy candidates without scanning 500 names yourself →
@@ -32,7 +37,7 @@ advice. Markets can lose money.
 - You want the whole board — every scored name across four books, sector lanes,
   both buy-list lanes — to do your own selection → call `/api/board/agent` ($0.25).
 
-## The endpoints (23 — full catalogue at `GET https://coil.trade/api`)
+## The endpoints (25 — full catalogue at `GET https://coil.trade/api`)
 
 | Endpoint | Price (USDC) | Returns |
 |---|---|---|
@@ -56,6 +61,8 @@ advice. Markets can lose money.
 | `GET https://coil.trade/api/board/brief`   | 0.05  | The morning brief: regime per book + top-5 picks + biggest movers + crypto gate, in one call. |
 | `GET https://coil.trade/api/board/day`   | 0.01  | day-trade state map: intraday lights grid, GO, FUEL vs anchor ETF, entry-window state, ROOM per name (~70 names, ~5-min refresh; a state map, not a ranking) |
 | `GET https://coil.trade/api/board/rotation` | 0.005 | Sector + macro rotation: ~50 ETFs as GO / HOLDING / TURNING / OUT on their own X/SPY ratio vs its 50-day, with distance, slope and ratio RSI. A state map — confirmed rotation is LATE for a pullback buyer. |
+| `GET https://coil.trade/api/board/whynot?sym=NVDA` | 0.005 | Why one name is not a candidate today, in plain words: the gate for its book and sector, its entry window and earnings inside five trading days. States and reasons only. |
+| `GET https://coil.trade/api/board/checktrade?sym=NVDA&entry=54.20&stop=51.50` | 0.01 | Your own long trade against the discipline on the live board: stop distance, chase or falling state, earnings, the gate and the Coil Live rulebook's sizing. Verdict: consistent, wait or pass. |
 | `GET https://coil.trade/api/board/diff?since=<hash>` | 0.01 | What CHANGED since the state hash you stored: who entered/left the READY candidate pool, per-name trend/light/leadership/hold-band flips, regime and ladder moves. Poll `/api/board/state` free, buy this only when the hash moves — an unchanged hash is answered free and never billed. |
 | `GET https://coil.trade/api/board/asof?date=YYYY-MM-DD` | 0.05 | Point-in-time archived scores, verbatim from the append-only log — immutable, never revised; verifiable against the free `/api/board/proof`. |
 | `GET https://coil.trade/api/board/agent`   | 0.25  | The full board: 650+ scored names, all four books, sector boards, both buy-list lanes. |
