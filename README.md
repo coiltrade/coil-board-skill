@@ -19,7 +19,7 @@ python3 scripts/coil_board.py --record
 ```
 
 Prefer tools over a script? The same board is a remote **MCP server** (33 tools in Claude clients;
-the free ones return a sample of the board, one market day delayed):
+the free ones return a sample of the board from the latest session's morning read):
 
 ```bash
 claude mcp add --transport http coil https://mcp.coil.trade/mcp
@@ -31,7 +31,7 @@ claude mcp add --transport http coil https://mcp.coil.trade/mcp
 BTC/ETH trend book each market morning: opportunity percentile, entry quality, hold strength, a
 state, and a regime verdict per book with a permission ladder. Field meanings: [`reference.md`](reference.md).
 
-Free tiers: the delayed board and MCP server (above), plus `POST /api/key` with an email for ~25
+Free tiers: the morning board and MCP server (above), plus `POST /api/key` with an email for ~25
 live calls/day on the cheap slices. Paid slices are read over
 [x402](https://x402.org) (live price list: <https://coil.trade/.well-known/x402>), and the live
 intraday board is a Coil Live subscription (see <https://coil.trade>).

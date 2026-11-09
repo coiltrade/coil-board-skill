@@ -80,7 +80,7 @@ declares `extensions["sign-in-with-x"]`; sign the message and send it back as th
 `SIGN-IN-WITH-X` header, or mint a durable key via `GET /api/auth/nonce` → `POST /api/auth/verify`.
 
 No wallet? A sample of the board is also a **remote MCP server** — free tier, top 3 per book and
-headline fields, one market day delayed: `claude mcp add --transport http coil https://mcp.coil.trade/mcp`
+headline fields, the morning read: `claude mcp add --transport http coil https://mcp.coil.trade/mcp`
 
 ## Pairing with a broker (closing the loop)
 
@@ -115,7 +115,7 @@ GET https://coil.trade/api/board/agent?preview=1
 ```
 
 There is also `GET https://coil.trade/api/board/free` — today's MORNING publish, top-3 per
-book. It is not one market day delayed (that is the free MCP tier) and it is not intraday-fresh
+book. It is the same morning read the free MCP tier serves, and it is not intraday-fresh
 either, so during a session it lags the preview above by hours; `x-coil-data-age` and the
 payload's `freshness` block say by exactly how much.
 

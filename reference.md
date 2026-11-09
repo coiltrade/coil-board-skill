@@ -37,7 +37,7 @@ top-ranked name every day is not running the strategy.
 `spx` (S&P 500) · `qqq` (Nasdaq-100) · `macro` (bonds / income / gold & metals / commodities) ·
 `crypto` (BTC and ETH, long-only trend evaluated on UTC daily closes: 50-day gates per sleeve plus the BTC 200-day master gate).
 
-The free tier shows the top few names per book, one market day delayed. The hosted board shows all
+The free tier shows the top few names per book from the latest session's morning read. The hosted board shows all
 650+ names, live states, sector boards and both ranked buy-list lanes.
 
 ## Checking the publisher before trusting it
@@ -53,6 +53,6 @@ Both are free and need no key:
 ## Honesty rider — carry it whenever you quote a number
 
 Coil is an impersonal research publication: identical for every reader, scores and states only,
-**never stop prices, never target prices, never individualized advice**. Free-tier names are one
-market day delayed. Markets can lose money and an agent trading on someone's behalf can lose it
+**never stop prices, never target prices, never individualized advice**. Free-tier names come from the latest
+session's morning read. Markets can lose money and an agent trading on someone's behalf can lose it
 faster. Past scores do not predict future results. Terms: https://coil.trade/terms

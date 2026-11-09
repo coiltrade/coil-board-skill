@@ -12,7 +12,7 @@ Only the arguments of the tool calls Claude makes for your question, for example
 
 ## Free tier and Coil Live
 
-The free tools return a sample of each read. Stock-market reads are one market day delayed; the crypto tools are one completed UTC close behind or a trimmed preview. The skills use the free tools by default. Tools whose names end in `_live` return intraday data to Coil Live subscribers, and the skills call them only when you ask for live or intraday data. In Claude, a `_live` call without a Coil Live sign-in returns the free delayed read, and the skills tell you so; some other clients receive a payment-required response instead. Terms: <https://coil.trade/terms>
+The free tools return a sample of each read. Stock-market reads are the latest session's morning read, dated in each reply; the crypto tools are one completed UTC close behind or a trimmed preview. The skills use the free tools by default. Tools whose names end in `_live` return intraday data to Coil Live subscribers, and the skills call them only when you ask for live or intraday data. In Claude, a `_live` call without a Coil Live sign-in returns the free morning read, and the skills tell you so; some other clients receive a payment-required response instead. Terms: <https://coil.trade/terms>
 
 ## Skills
 
@@ -23,7 +23,7 @@ The free tools return a sample of each read. Stock-market reads are one market d
 
 ## Not investment advice
 
-The output is market research, not personalized investment advice, and not an offer or solicitation to buy or sell any security. Reads describe conditions on a delayed board and do not account for your situation. Past or described conditions do not predict future results. You make your own decisions, and the plugin cannot place orders. Coil Technologies LLC is not affiliated with any broker or exchange.
+The output is market research, not personalized investment advice, and not an offer or solicitation to buy or sell any security. Reads describe conditions on a board read once each morning and do not account for your situation. Past or described conditions do not predict future results. You make your own decisions, and the plugin cannot place orders. Coil Technologies LLC is not affiliated with any broker or exchange.
 
 ## License
 

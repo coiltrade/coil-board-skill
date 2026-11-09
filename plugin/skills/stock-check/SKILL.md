@@ -5,7 +5,7 @@ description: Use when the user asks whether a specific stock or ETF looks like a
 
 # Stock check
 
-Reads a single name from the Coil connector using the free tools. The free stock tools are one market day delayed; say so when you report.
+Reads a single name from the Coil connector using the free tools. The free stock tools answer from the latest session's morning read; report the date the reply states.
 
 ## Steps
 
@@ -17,7 +17,7 @@ Reads a single name from the Coil connector using the free tools. The free stock
 
 ## Live data
 
-Use the `_live` versions (`get_stock_read_live` or `get_hold_state_live`) only when the user asks for live or intraday data. After any `_live` call, check `data_tier.tier` in the result. If it is `delayed`, the call returned the free delayed read, not live data: tell the user so, and say that live data needs a Coil Live sign-in. Some clients other than Claude get a PaymentRequired object and no data instead; treat that the same way and give the delayed read. Do not retry in a loop.
+Use the `_live` versions (`get_stock_read_live` or `get_hold_state_live`) only when the user asks for live or intraday data. After any `_live` call, check `data_tier.tier` in the result. If it is `delayed`, the call returned the free morning read, not live data: tell the user so, and say that live data needs a Coil Live sign-in. Some clients other than Claude get a PaymentRequired object and no data instead; treat that the same way and give the free morning read. Do not retry in a loop.
 
 ## How to present results
 

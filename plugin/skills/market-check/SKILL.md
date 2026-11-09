@@ -5,7 +5,7 @@ description: Use when the user asks how the market is set up today, whether cond
 
 # Market check
 
-Reads the overall market from the Coil connector, top-down, using the free tools. Most free tools are one market day delayed; the crypto tools have their own timing (see below). Say which applies when you report.
+Reads the overall market from the Coil connector, top-down, using the free tools. Most free tools answer from the latest session's morning read, and each reply states the date of the board it read; the crypto tools have their own timing (see below). Say which applies when you report.
 
 ## Steps
 
@@ -19,11 +19,11 @@ If the user asks what changed since a previous read, call `get_board_changes` wi
 
 ## Live data
 
-Use the `_live` versions (for example `get_market_regime_live`, `get_market_leaders_live`, `get_rotation_live`) only when the user asks for live or intraday data. After any `_live` call, check `data_tier.tier` in the result. If it is `delayed`, the call returned the free delayed read, not live data: tell the user so, and say that live data needs a Coil Live sign-in. Some clients other than Claude get a PaymentRequired object and no data instead; treat that the same way and give the delayed read. Do not retry in a loop.
+Use the `_live` versions (for example `get_market_regime_live`, `get_market_leaders_live`, `get_rotation_live`) only when the user asks for live or intraday data. After any `_live` call, check `data_tier.tier` in the result. If it is `delayed`, the call returned the free morning read, not live data: tell the user so, and say that live data needs a Coil Live sign-in. Some clients other than Claude get a PaymentRequired object and no data instead; treat that the same way and give the free morning read. Do not retry in a loop.
 
 ## How to present results
 
-- State the data date. Stock-market reads on the free tier are one market day delayed; crypto reads carry their own close date or are a preview, as described above.
+- State the data date. Stock-market reads on the free tier are the latest session's morning read, dated in the reply; crypto reads carry their own close date or are a preview, as described above.
 - Report what the tools returned in plain language. Do not invent numbers, levels or targets that the tools did not return.
 - Present the output as research on market conditions, not as advice or a recommendation. The user decides what to do.
 - Never place, suggest placing, or simulate an order. This plugin has no trading capability.
