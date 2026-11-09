@@ -114,9 +114,10 @@ to the paid board — live intraday timestamps, trimmed to the top-3 names per b
 GET https://coil.trade/api/board/agent?preview=1
 ```
 
-There is also `GET https://coil.trade/api/board/free` — today's MORNING publish, top-3 per
-book. It is the same morning read the free MCP tier serves, and it is not intraday-fresh
-either, so during a session it lags the preview above by hours; `x-coil-data-age` and the
+There is also `GET https://coil.trade/api/board/free` — today's board, 3 names per book,
+refreshed about hourly during US market hours (the free MCP tier stays on the morning read).
+It is not the 5-minute board, so during a session it can lag the preview above by up to an
+hour; `x-coil-data-age` and the
 payload's `freshness` block say by exactly how much.
 
 ## How payment works (x402)
