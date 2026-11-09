@@ -1,7 +1,7 @@
 {
   "name": "coil",
   "displayName": "Coil Live",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "Read the stock market in Claude: market regime, sector rotation, single-stock and hold checks, Bitcoin and Ethereum trend gates, and published backtest studies. Free morning reads by default; read-only, never trades.",
   "author": {
     "name": "Coil Technologies LLC",
