@@ -35,7 +35,7 @@ Use it to trade like a desk, in a fixed order: the gate first, then where the mo
 - You want today's ranked buy candidates without scanning 500 names yourself →
   call `/api/board/buylist` ($0.05).
 - You want the whole board — every scored name across four books, sector lanes,
-  both buy-list lanes — to do your own selection → call `/api/board/agent` ($0.25).
+  both buy-list lanes — to do your own selection → call `/api/board/agent` ($0.05).
 
 ## The endpoints (25 — full catalogue at `GET https://coil.trade/api`)
 
@@ -58,14 +58,14 @@ Use it to trade like a desk, in a fixed order: the gate first, then where the mo
 | `GET https://coil.trade/api/crypto/setup`  | 0.05  | Crypto SETUP scan: washed-shape hits across all 81 RH-tradable coins — GO, fuel vs BTC, grade, room, plus the setup column for the whole universe (~5-min recompute, 24/7; equity-validated shapes, forward-graded on crypto). |
 | `GET https://coil.trade/api/crypto/day`    | 0.005 | 24/7 crypto day-state board: 81 RH-tradable coins — trend distances, tape lights, ATR%, RS vs BTC, room, volume z, UP/CHOP/DOWN state + ranks, plus the daily gate and breadth (publishes ~every 5 min around the clock; a state map, not a ranking). |
 | `GET https://coil.trade/api/tradfi-risk`   | 0.003 | TradFi risk-on/off for crypto agents: S&P + Nasdaq regime, sector breadth, ladder + the BTC/ETH gate. |
-| `GET https://coil.trade/api/board/brief`   | 0.05  | The morning brief: regime per book + top-5 picks + biggest movers + crypto gate, in one call. |
+| `GET https://coil.trade/api/board/brief`   | 0.02  | The morning brief: regime per book + top-5 picks + biggest movers + crypto gate, in one call. |
 | `GET https://coil.trade/api/board/day`   | 0.01  | day-trade state map: intraday lights grid, GO, FUEL vs anchor ETF, entry-window state, ROOM per name (~70 names, ~5-min refresh; a state map, not a ranking) |
 | `GET https://coil.trade/api/board/rotation` | 0.005 | Sector + macro rotation: ~50 ETFs as GO / HOLDING / TURNING / OUT on their own X/SPY ratio vs its 50-day, with distance, slope and ratio RSI. A state map — confirmed rotation is LATE for a pullback buyer. |
 | `GET https://coil.trade/api/board/whynot?sym=NVDA` | 0.005 | Why one name is not a candidate today, in plain words: the gate for its book and sector, its entry window and earnings inside five trading days. States and reasons only. |
 | `GET https://coil.trade/api/board/checktrade?sym=NVDA&entry=54.20&stop=51.50` | 0.01 | Your own long trade against the discipline on the live board: stop distance, chase or falling state, earnings, the gate and the Coil Live rulebook's sizing. Verdict: consistent, wait or pass. |
 | `GET https://coil.trade/api/board/diff?since=<hash>` | 0.01 | What CHANGED since the state hash you stored: who entered/left the READY candidate pool, per-name trend/light/leadership/hold-band flips, regime and ladder moves. Poll `/api/board/state` free, buy this only when the hash moves — an unchanged hash is answered free and never billed. |
 | `GET https://coil.trade/api/board/asof?date=YYYY-MM-DD` | 0.05 | Point-in-time archived scores, verbatim from the append-only log — immutable, never revised; verifiable against the free `/api/board/proof`. |
-| `GET https://coil.trade/api/board/agent`   | 0.25  | The full board: 650+ scored names, all four books, sector boards, both buy-list lanes. |
+| `GET https://coil.trade/api/board/agent`   | 0.05  | The full board: 650+ scored names, all four books, sector boards, both buy-list lanes. |
 
 Free and unlimited: `GET /api/board/state` returns per-book hashes (`books.spx`, `books.qqq`) plus optional
 `?syms=NVDA,AMD` per-name hashes — poll it and
