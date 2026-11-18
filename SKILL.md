@@ -16,7 +16,7 @@ homepage: https://coil.trade/agents
 
 # Coil Board API
 
-Coil publishes a scored, ranked read of the US equity market (and a long-only
+Coil publishes a scored read of the US equity market (and a long-only
 BTC/ETH trend book) that an agent can buy one read at a time over
 [x402](https://x402.org). You are not buying raw OHLCV — that is free everywhere.
 You are buying the **judgment**: which names are set up to buy, how strong the
@@ -47,19 +47,19 @@ Use it to trade like a desk, in a fixed order: the gate first, then where the mo
 | `GET https://coil.trade/api/board/indices` | 0.005 | The scored index row per book (SPY, QQQ, macro, BTC/ETH) — the cheapest top-down read. |
 | `GET https://coil.trade/api/board/name?sym=NVDA` | 0.005 | One stock's full read + its book's regime — or up to **10 names in one call** (`?sym=NVDA,AMD,MSFT`). Any of 650+ names. |
 | `GET https://coil.trade/api/board/hold?sym=NVDA` | 0.005 | Per-symbol HOLD state (up to 10 per call): trend state, hold strength, readiness, maturity-late flag, gap-risk grade + book regime; BTC-USD/ETH-USD return the crypto IN\|CASH daily-close state. Never ingests your entry or size. |
-| `GET https://coil.trade/api/board/movers`  | 0.005 | Top 10 gainers + 10 losers, fully scored. |
+| `GET https://coil.trade/api/board/movers`  | 0.005 | The 10 biggest gainers + 10 biggest losers, fully scored. |
 | `GET https://coil.trade/api/board/sectors` | 0.01  | Every sector ETF scored + the regime's green sectors. |
-| `GET https://coil.trade/api/board/sector?name=Energy` | 0.01 | One sector's members, fully scored and ranked (`?etf=XLE` works too). |
-| `GET https://coil.trade/api/board/leaders` | 0.01  | Top 10 leadership names per book by opportunity. |
-| `GET https://coil.trade/api/board/buylist` | 0.05  | Today's ranked candidates per book across two lanes, with entry windows and leadership flags. |
-| `GET https://coil.trade/api/board/top-volume` | 0.05 | Top-5 by 20-day dollar volume in every sector, fully scored. |
+| `GET https://coil.trade/api/board/sector?name=Energy` | 0.01 | One sector's members, fully scored and ordered by opportunity (`?etf=XLE` works too). |
+| `GET https://coil.trade/api/board/leaders` | 0.01  | The 10 highest-scored leadership names per book, ordered by opportunity. |
+| `GET https://coil.trade/api/board/buylist` | 0.05  | Today's scored candidates per book across two lanes, with entry windows and leadership flags. |
+| `GET https://coil.trade/api/board/top-volume` | 0.05 | The five most-traded names by 20-day dollar volume in every sector, fully scored. |
 | `GET https://coil.trade/api/crypto/gate`   | 0.001 | The cheapest check: is the BTC 200-day master gate open? LONG/CASH per sleeve + verdict. |
-| `GET https://coil.trade/api/crypto/night`  | 0.001 | Overnight continuation read: the top-5 session-momentum coins into the 20:00 UTC signal + the BTC 200-day regime gate + the pre-registered study receipts (beat its null at every fee tier; REFUTED at Robinhood retail taker fees — the refutation ships in the read). ~5-min refresh, 24/7. |
+| `GET https://coil.trade/api/crypto/night`  | 0.001 | Overnight continuation read: the five strongest session-momentum coins into the 20:00 UTC signal + the BTC 200-day regime gate + the pre-registered study receipts (beat its null at every fee tier; REFUTED at Robinhood retail taker fees — the refutation ships in the read). ~5-min refresh, 24/7. |
 | `GET https://coil.trade/api/crypto/setup`  | 0.05  | Crypto SETUP scan: washed-shape hits across all 81 RH-tradable coins — GO, fuel vs BTC, grade, room, plus the setup column for the whole universe (~5-min recompute, 24/7; equity-validated shapes, forward-graded on crypto). |
 | `GET https://coil.trade/api/crypto/day`    | 0.005 | 24/7 crypto day-state board: 81 RH-tradable coins — trend distances, tape lights, ATR%, RS vs BTC, room, volume z, UP/CHOP/DOWN state + ranks, plus the daily gate and breadth (publishes ~every 5 min around the clock; a state map, not a ranking). |
 | `GET https://coil.trade/api/tradfi-risk`   | 0.003 | TradFi risk-on/off for crypto agents: S&P + Nasdaq regime, sector breadth, ladder + the BTC/ETH gate. |
-| `GET https://coil.trade/api/board/brief`   | 0.02  | The morning brief: regime per book + top-5 picks + biggest movers + crypto gate, in one call. |
-| `GET https://coil.trade/api/board/day`   | 0.01  | day-trade state map: intraday lights grid, GO, FUEL vs anchor ETF, entry-window state, ROOM per name (~70 names, ~5-min refresh; a state map, not a ranking) |
+| `GET https://coil.trade/api/board/brief`   | 0.02  | The morning brief: regime per book + five highest-scored picks + biggest movers + crypto gate, in one call. |
+| `GET https://coil.trade/api/board/day`   | 0.01  | day-trade state map: multi-timeframe lights grid, GO, FUEL vs anchor ETF, entry-window state, ROOM per name (~70 names, ~5-min refresh; a state map, not a ranking) |
 | `GET https://coil.trade/api/board/rotation` | 0.005 | Sector + macro rotation: ~50 ETFs as GO / HOLDING / TURNING / OUT on their own X/SPY ratio vs its 50-day, with distance, slope and ratio RSI. A state map — confirmed rotation is LATE for a pullback buyer. |
 | `GET https://coil.trade/api/board/whynot?sym=NVDA` | 0.005 | Why one name is not a candidate today, in plain words: the gate for its book and sector, its entry window and earnings inside five trading days. States and reasons only. |
 | `GET https://coil.trade/api/board/checktrade?sym=NVDA&entry=54.20&stop=51.50` | 0.01 | Your own long trade against the discipline on the live board: stop distance, chase or falling state, earnings, the gate and the Coil Live rulebook's sizing. Verdict: consistent, wait or pass. |
@@ -79,7 +79,7 @@ but no email? Sign in with it instead (SIWX — the signature moves no funds): e
 declares `extensions["sign-in-with-x"]`; sign the message and send it back as the
 `SIGN-IN-WITH-X` header, or mint a durable key via `GET /api/auth/nonce` → `POST /api/auth/verify`.
 
-No wallet? A sample of the board is also a **remote MCP server** — free tier, top 3 per book and
+No wallet? A sample of the board is also a **remote MCP server** — free tier, the three highest-scored names per book and
 headline fields, the morning read: `claude mcp add --transport http coil https://mcp.coil.trade/mcp`
 
 ## Pairing with a broker (closing the loop)
@@ -108,7 +108,7 @@ recomputes about every 5 minutes; the payload carries `computed_at` and an
 ## Try it free first
 
 Before paying, validate your parser against the free preview — identical schema
-to the paid board — live intraday timestamps, trimmed to the top-3 names per book:
+to the paid board — live timestamps, trimmed to the three highest-scored names per book:
 
 ```
 GET https://coil.trade/api/board/agent?preview=1
@@ -168,7 +168,7 @@ async function tick() {
   const regime = await (await paid("https://coil.trade/api/board/regime")).json();
   const spx = regime.books?.spx?.regime;             // { mode, verdict, ladder: { rung } … }
 
-  // 3. $0.05 — the ranked buy-list, only when the ladder says names are enterable
+  // 3. $0.05 — the scored buy-list, only when the ladder says names are enterable
   if (spx?.ladder?.rung === "NAMES") {
     const buylist = await (await paid("https://coil.trade/api/board/buylist")).json();
     // …your sizing and exit rules here. Coil publishes scores and states —
