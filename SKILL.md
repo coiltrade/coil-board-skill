@@ -37,7 +37,7 @@ Use it to trade like a desk, in a fixed order: the gate first, then where the mo
 - You want the whole board — every scored name across four books, sector lanes,
   both buy-list lanes — to do your own selection → call `/api/board/agent` ($0.05).
 
-## The endpoints (25 — full catalogue at `GET https://coil.trade/api`)
+## The endpoints (27 — full catalogue at `GET https://coil.trade/api`)
 
 | Endpoint | Price (USDC) | Returns |
 |---|---|---|
@@ -63,6 +63,8 @@ Use it to trade like a desk, in a fixed order: the gate first, then where the mo
 | `GET https://coil.trade/api/board/rotation` | 0.005 | Sector + macro rotation: ~50 ETFs as GO / HOLDING / TURNING / OUT on their own X/SPY ratio vs its 50-day, with distance, slope and ratio RSI. A state map — confirmed rotation is LATE for a pullback buyer. |
 | `GET https://coil.trade/api/board/whynot?sym=NVDA` | 0.005 | Why one name is not a candidate today, in plain words: the gate for its book and sector, its entry window and earnings inside five trading days. States and reasons only. |
 | `GET https://coil.trade/api/board/checktrade?sym=NVDA&entry=54.20&stop=51.50` | 0.01 | Your own long trade against the discipline on the live board: stop distance, chase or falling state, earnings, the gate and the Coil Live rulebook's sizing. Verdict: consistent, wait or pass. |
+| `GET https://coil.trade/api/board/rating?sym=NVDA` | 0.01 | Which way one name points on each timeframe: eight timeframes (5m to 1M; 4h where measured), each an UP / DOWN verdict from STRONG_UP to STRONG_DOWN with a score and its trend, momentum and coil votes, plus day, swing and position summaries, how many timeframes agree, the dissenting one, the latest turn, a three-leg why and the invalidation as a percent (never a price). Updated about every 5 minutes in market hours; asof and published_pt lead the reply. Included with Coil Live and the 30-day pass. New: its graded record starts now. |
+| `GET https://coil.trade/api/board/rating-screen?day=UP&swing=UP` | 0.05 | The rated names whose summaries match: filter on day, swing and position (STRONG_UP, UP, NEUTRAL, DOWN or STRONG_DOWN); each row carries its summary verdicts, how many timeframes agree and its latest turn; up to 50 rows, with truncated: true when more match. Updated about every 5 minutes in market hours. Included with Coil Live and the 30-day pass. New: its graded record starts now. |
 | `GET https://coil.trade/api/board/diff?since=<hash>` | 0.01 | What CHANGED since the state hash you stored: who entered/left the READY candidate pool, per-name trend/light/leadership/hold-band flips, regime and ladder moves. Poll `/api/board/state` free, buy this only when the hash moves — an unchanged hash is answered free and never billed. |
 | `GET https://coil.trade/api/board/asof?date=YYYY-MM-DD` | 0.05 | Point-in-time archived scores, verbatim from the append-only log — immutable, never revised; verifiable against the free `/api/board/proof`. |
 | `GET https://coil.trade/api/board/agent`   | 0.05  | The full board: 650+ scored names, all four books, sector boards, both buy-list lanes. |
