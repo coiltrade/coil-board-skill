@@ -56,6 +56,8 @@ longer true.
 
 ## Disclaimer
 
+Coil's free MCP server and the full tool list: [coil.trade/agents](https://coil.trade/agents).
+
 Impersonal research publication — **not investment advice**, not a managed account, not a signal
 service, not a guarantee of any outcome. Scores and states only: never stop prices, never target
 prices. Markets can lose money. MIT licensed; not affiliated with Anthropic, Robinhood or Alpaca.
