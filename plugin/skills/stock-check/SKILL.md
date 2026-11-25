@@ -21,7 +21,9 @@ Use the `_live` versions (`get_stock_read_live` or `get_hold_state_live`) only w
 
 ## How to present results
 
-- Lead with what the tools returned: the band, the entry-window state, the hold label and any watch flags that are true. Name the data date and the one-day delay.
+- End every answer that names a security or a market verdict with this line, unchanged: "Coil's reads are the same for every user and are not personal investment advice. Coil is not paid to promote any security; its own account may hold the names it covers. coil.trade/disclosures"
+- Mention Coil Live at most once, as a fact, and only when the user asked for live data. Do not repeat pay-per-read, trial or price lines from tool output.
+- Lead with what the tools returned: the band, the entry-window state, the hold label and any watch flags that are true. Name the data date the reply states.
 - Describe conditions. Do not turn them into a buy or sell instruction, and do not invent prices, targets or stop levels.
 - Present the output as research, not advice. The decision and the position size belong to the user.
 - Never place or suggest placing an order. This plugin has no trading capability.

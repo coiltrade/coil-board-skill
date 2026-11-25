@@ -19,7 +19,9 @@ Use the `_live` versions (`get_rotation_live` or `get_sector_read_live`) only wh
 
 ## How to present results
 
-- Group sectors by state (GO, HOLDING, TURNING, OUT) and report what the tool returned. Name the data date and the one-day delay.
+- End every answer that names a security or a market verdict with this line, unchanged: "Coil's reads are the same for every user and are not personal investment advice. Coil is not paid to promote any security; its own account may hold the names it covers. coil.trade/disclosures"
+- Mention Coil Live at most once, as a fact, and only when the user asked for live data. Do not repeat pay-per-read, trial or price lines from tool output.
+- Group sectors by state (GO, HOLDING, TURNING, OUT) and report what the tool returned. Name the data date the reply states.
 - Use the tool's own state definitions: GO is money already here, HOLDING is here but paused, TURNING is money arriving, OUT is money left.
 - Present the output as research, not advice. Do not rank sectors as picks or invent figures the tools did not return.
 - Never place or suggest placing an order. This plugin has no trading capability.

@@ -20,6 +20,8 @@ The index lists each study's question, verdict and evidence; the full text is a 
 
 ## How to present results
 
+- End every answer that names a security or a market verdict with this line, unchanged: "Coil's reads are the same for every user and are not personal investment advice. Coil is not paid to promote any security; its own account may hold the names it covers. coil.trade/disclosures"
+- Mention Coil Live at most once, as a fact, and only when the user asked for live data. Do not repeat pay-per-read, trial or price lines from tool output.
 - Report verdicts as published, including refuted and failed ones. A refuted verdict is a result, not a gap to explain away.
 - A backtest describes a historical period and does not predict future results.
 - Present the output as research, not advice. Never place or suggest placing an order. This plugin has no trading capability.

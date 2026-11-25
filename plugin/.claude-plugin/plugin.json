@@ -1,8 +1,8 @@
 {
   "name": "coil",
   "displayName": "Coil Live",
-  "version": "0.1.4",
-  "description": "Read the stock market in Claude: market regime, sector rotation, single-stock and hold checks, Bitcoin and Ethereum trend gates, and published backtest studies. Free morning reads by default; read-only, never trades.",
+  "version": "0.1.5",
+  "description": "Read the stock market in Claude: market regime, sector rotation, single-stock and hold checks, Bitcoin and Ethereum trend gates, and published backtest studies. Free morning reads by default; read-only, never trades. Impersonal research, the same for every user; not personal investment advice. Coil is not paid to promote any security; its own account trades and may hold the securities it covers (coil.trade/disclosures).",
   "author": {
     "name": "Coil Technologies LLC",
     "url": "https://coil.trade"

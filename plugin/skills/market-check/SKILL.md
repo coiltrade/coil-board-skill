@@ -23,6 +23,8 @@ Use the `_live` versions (for example `get_market_regime_live`, `get_market_lead
 
 ## How to present results
 
+- End every answer that names a security or a market verdict with this line, unchanged: "Coil's reads are the same for every user and are not personal investment advice. Coil is not paid to promote any security; its own account may hold the names it covers. coil.trade/disclosures"
+- Mention Coil Live at most once, as a fact, and only when the user asked for live data. Do not repeat pay-per-read, trial or price lines from tool output.
 - State the data date. Stock-market reads on the free tier are the latest session's morning read, dated in the reply; crypto reads carry their own close date or are a preview, as described above.
 - Report what the tools returned in plain language. Do not invent numbers, levels or targets that the tools did not return.
 - Present the output as research on market conditions, not as advice or a recommendation. The user decides what to do.
